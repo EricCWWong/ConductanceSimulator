@@ -25,12 +25,6 @@ for i in range (0, 5):
     
     axs[i].plot(x,y)
 
-
-
-# potting the points 
-#plt.plot(x, y) 
   
 # function to show the plot 
-#plt.show() 
-
 plt.savefig('Conductance_without_B_field.pdf')
