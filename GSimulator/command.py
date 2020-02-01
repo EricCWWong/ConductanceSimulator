@@ -1,32 +1,41 @@
 import numpy as np
+from argparse import ArgumentParser
 import matplotlib.pyplot as plt
-from model import Model
-from constant import get_h_bar, get_electron_charge
-from plotter import single_plot, plot_comparison
-import sys
+from .model import Model
+from .command_helper import read_setup, plotter
 
+
+"""
+This is the entry point file of the package GSimulator.
+"""
 
 def process():
+
+    parser = ArgumentParser("Input the initial set up for the model (in .csv format):")
+
+    parser.add_argument(
+        'experiment_setup',
+        action='store',
+        help="This is csv file that contains the experiment set up.")
+
+    parser.add_argument(
+        'channels',
+        action='store',
+        help="Number of electron channels.")
+
+    parser.add_argument(
+        '--constants',
+        action='store',
+        help="This is will be invoked if you would like to change the constants.")
+
+    arguments = parser.parse_args()
+
     # Constants
-    e = get_electron_charge()
-    h_bar = get_h_bar()
-    w_x = 1 / h_bar # in terms of meV
-    w_y = 2 * w_x
-    V_sd_unit = h_bar * w_x / e
-    B = 17
-    angle = 1
+    exp_setup = read_setup(arguments.experiment_setup)
+    channels = int(arguments.channels)
 
-    # Steps
-    plots = 6
-    channels = 5
-    V_sd = 0 * V_sd_unit
-    steps = 2 * V_sd_unit
-
-    model = Model(w_x, w_y, V_sd, B, angle)
-
-    single_plot(model, channels, 'test')
-
-    plot_comparison(model, channels, plots, 'V', steps, 2, 'test2')
-
+    # Plot graph
+    plotter(exp_setup, channels)
+    
 if __name__ == "__main__":
     process()
