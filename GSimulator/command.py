@@ -36,9 +36,15 @@ def process():
              electrons in units of normal electron mass (m_e). Default value is 0.067*(m_e).")
     
     parser.add_argument(
-        '--mat_nm',
+        '--name',
         action='store',
         help="This will be invoked if you would like to name a specific material.")
+    
+    parser.add_argument(
+        '--savefig',
+        action='store',
+        help="This will called if you would like to save your plot. The input will be the file name. \
+            including the file format. Default fmt is .png.")
 
     arguments = parser.parse_args()
 
@@ -58,23 +64,25 @@ def process():
     material = Material(g, me_eff)
 
     # Printing information on set-up:
-    print("##############################")
+    print("######################################################")
     print("No. of experiment:", len(exp_setup))
     print("No. of channels  :", channels)
-    print("##############################")
+    print("######################################################")
     print("Material information:")
-    if arguments.mat_nm is not None:
-        name = arguments.mat_nm
-        filename = 'Conductance_of_' + name
+    if arguments.name is not None:
+        name = arguments.name
+        graphname = 'Conductance of ' + name
         print("Material         :", name)
     else:
-        filename = 'Conductance' 
+        graphname = 'Conductance' 
     print("- Lande g-factor :", g)
     print("- e- eff mass    :", me_eff, "m_e")
-    print("##############################")
+    print("######################################################")
+
+    savefig = arguments.savefig
 
     # Plot graph
-    plotter(material, exp_setup, channels, graph_name=filename)
+    plotter(material, exp_setup, channels, graph_name=graphname, savefig=savefig)
     
 if __name__ == "__main__":
     process()

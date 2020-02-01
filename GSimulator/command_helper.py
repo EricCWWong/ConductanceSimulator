@@ -27,7 +27,7 @@ def read_setup(file_name):
         exp_setup = np.array(exp_setup)
     return exp_setup
 
-def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf'):
+def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf', savefig=None):
     """
     This will take in different experiment setup and plot the predicted graph.
 
@@ -74,7 +74,7 @@ def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf'):
         y = model.total_transmission(channels, x - i * 2)
         axs.plot(x,y)
 
-    file_name = graph_name + '.' + fmt
-
-    plt.savefig(file_name)
+    if savefig is not None:
+        file_name = savefig
+        plt.savefig('./Results/' + file_name)
     plt.show()
