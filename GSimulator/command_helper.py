@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def read_setup(file_name):
     """
-    This will take a passengers .csv file and make a list of passengers.
+    This will take a .csv file and retrieve the experimental setup.
 
     Parameters
     ----------
@@ -27,7 +27,7 @@ def read_setup(file_name):
         exp_setup = np.array(exp_setup)
     return exp_setup
 
-def plotter(exp_setup, channels, graph_name='conductance', fmt='pdf'):
+def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf'):
     """
     This will take in different experiment setup and plot the predicted graph.
 
@@ -49,7 +49,7 @@ def plotter(exp_setup, channels, graph_name='conductance', fmt='pdf'):
 
     # Initialise graph:
     fig, axs = plt.subplots(1, 1)
-    fig.suptitle('Conductance')
+    fig.suptitle(graph_name)
     axs.set_ylabel(r'$G \times \frac{h}{2e^{2}} $')
     axs.set_xlabel(r'$ \frac{E_{f} - U_{0}}{\hbar w_{x}}$')
     axs.set_ylim([0, channels])
@@ -68,8 +68,7 @@ def plotter(exp_setup, channels, graph_name='conductance', fmt='pdf'):
         angle = experiment[4]
 
         # constructing model:
-        model = Model(hw_x, hw_y, V_sd, B, angle)
-        print(model.magnetic_field, model.angular_freq, model.E1, model.E2, model.zeeman(1/2))
+        model = Model(material, hw_x, hw_y, V_sd, B, angle)
         
         # calculate y values:
         y = model.total_transmission(channels, x - i * 2)
