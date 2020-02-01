@@ -1,6 +1,6 @@
 import numpy as np
 from numpy import pi, cos, exp, sqrt, radians
-from .constant import h_bar, g, mu_B, m_e_eff
+from .constant import h_bar, mu_B, Material
 
 
 """
@@ -9,15 +9,16 @@ required calculations of the transmission rate.
 """
 
 class Model:
-    def __init__ (self, hw_x, hw_y, V_sd=0, magnetic_field=0, angle=0):
+    def __init__ (self, material, hw_x, hw_y, V_sd=0, magnetic_field=0, angle=0):
         
         # Basic ingredients:
+        self.m = material
         self.hw_x = hw_x
         self.hw_y = hw_y
         self.eVsd = V_sd  # V_sd in mV ==> eV_sd in meV
         self.magnetic_field = magnetic_field
         self.angle = radians(angle)
-        self.hw_c = h_bar * self.magnetic_field * cos(self.angle) / m_e_eff * 10**(3) # In terms of meV
+        self.hw_c = h_bar * self.magnetic_field * cos(self.angle) / self.m.m_e_eff * 10**(3) # In terms of meV
         self.angular_freq = self.hw_c ** 2 + self.hw_y ** 2 - self.hw_x ** 2
 
         # Advanced ingredients:
@@ -40,7 +41,7 @@ class Model:
         zeeman_term: float
             Returns the calculated Zeeman term.
         """
-        zeeman_term = g * mu_B * S * self.magnetic_field
+        zeeman_term = self.m.g * mu_B * S * self.magnetic_field
         return zeeman_term
 
     # Transmission terms:
