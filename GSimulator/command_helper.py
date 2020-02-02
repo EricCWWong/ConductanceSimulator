@@ -27,12 +27,15 @@ def read_setup(file_name):
         exp_setup = np.array(exp_setup)
     return exp_setup
 
-def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf', savefig=None):
+def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt='pdf', savefig=None):
     """
     This will take in different experiment setup and plot the predicted graph.
 
     Parameters
     ----------
+    material: object (Material)
+        This object stores the data such as Lande g factor, effective electron
+        mass for specific material.
     exp_setup: 2d-array
         The experiment setup, see the csv file format for details.
     channels: int
@@ -41,6 +44,9 @@ def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf', 
         The name of the saved plot. Default is 'conductance'.
     fmt: str
         The format of the saved file.
+    savefig: str
+        The name of the fig if user wants it to be saved. If savefig is NONE, then 
+        the figure will not be saved.
 
     Returns
     -------
@@ -56,7 +62,7 @@ def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf', 
     
     # Setting up:
     plots = len(exp_setup)
-    x = np.arange(-2, 2 * plots + channels * 2, 0.1)
+    x = np.arange(-2, offset * plots + channels * 2, 0.1)
 
     for i in range(plots):
         # initialise experiment setup:
@@ -71,7 +77,7 @@ def plotter(material, exp_setup, channels, graph_name='conductance', fmt='pdf', 
         model = Model(material, hw_x, hw_y, V_sd, B, angle)
         
         # calculate y values:
-        y = model.total_transmission(channels, x - i * 2)
+        y = model.total_transmission(channels, x - i * offset)
         axs.plot(x,y)
 
     if savefig is not None:

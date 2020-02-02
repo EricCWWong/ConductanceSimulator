@@ -45,6 +45,11 @@ def process():
         action='store',
         help="This will called if you would like to save your plot. The input will be the file name. \
             including the file format. Default fmt is .png.")
+    
+    parser.add_argument(
+        '--offset',
+        action='store',
+        help="The translation of the curves, in units of meV.")
 
     arguments = parser.parse_args()
 
@@ -57,6 +62,11 @@ def process():
         me_eff = 0.067
     else:
         me_eff = float(arguments.eff)
+    
+    if arguments.offset is None:
+        offset = 2
+    else:
+        offset = float(arguments.offset)
 
     # Constants
     exp_setup = read_setup(arguments.experiment_setup)
@@ -82,7 +92,7 @@ def process():
     savefig = arguments.savefig
 
     # Plot graph
-    plotter(material, exp_setup, channels, graph_name=graphname, savefig=savefig)
+    plotter(material, exp_setup, channels, offset, graph_name=graphname, savefig=savefig)
     
 if __name__ == "__main__":
     process()
