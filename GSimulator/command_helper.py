@@ -1,6 +1,7 @@
 import numpy as np
 from .model import Model
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+from prettytable import PrettyTable
 
 
 def read_setup(file_name):
@@ -26,6 +27,28 @@ def read_setup(file_name):
         exp_setup = [exp_setup]
         exp_setup = np.array(exp_setup)
     return exp_setup
+
+def read_material(file_name):
+    """
+    This will take a .csv file and retrieve the material information.
+
+    Parameters
+    ----------
+    filename: str
+        The filename that contains the material information in .csv format.
+
+    Returns
+    -------
+    exp_setup: array
+        This is the array for the material information.
+    """
+
+    material = np.genfromtxt(
+        file_name,
+        delimiter=",",
+        names=True,
+        dtype=['<U10', float, float])
+    return material
 
 def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt='pdf', savefig=None):
     """
@@ -59,6 +82,10 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     axs.set_ylabel(r'$G \times \frac{h}{2e^{2}} $')
     axs.set_xlabel(r'$ \frac{E_{f} - U_{0}}{\hbar w_{x}}$')
     axs.set_ylim([0, channels])
+
+    # Initialise table:
+    table = PrettyTable()
+    table.field_names = ['hbar w_x (meV)', 'w_y/ w_x', 'B (T)', 'angle (rad)', 'E1 (meV)', 'E2 (meV)', 'eVsd (meV)', 'hbar w_c (meV)', 'Zeeman (meV)']
     
     # Setting up:
     plots = len(exp_setup)
@@ -75,10 +102,15 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
 
         # constructing model:
         model = Model(material, hw_x, hw_y, V_sd, B, angle)
+
+        # adding row data in table:
+        table.add_row([model.hw_x, model.hw_y/model.hw_x, model.magnetic_field, model.angle, model.E1, model.E2, model.eVsd, model.hw_c, model.zeeman(1/2)])
         
         # calculate y values:
         y = model.total_transmission(channels, x - i * offset)
         axs.plot(x,y)
+
+    print(table)
 
     if savefig is not None:
         file_name = savefig

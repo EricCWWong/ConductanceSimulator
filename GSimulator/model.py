@@ -19,6 +19,8 @@ class Model:
         self.magnetic_field = magnetic_field
         self.angle = radians(angle)
         self.hw_c = h_bar * self.magnetic_field * cos(self.angle) / self.m.m_e_eff * 10**(3) # In terms of meV
+        if np.abs(self.hw_c) < 0.00000001:
+            self.hw_c = 0
         self.angular_freq = self.hw_c ** 2 + self.hw_y ** 2 - self.hw_x ** 2
 
         # Advanced ingredients:
