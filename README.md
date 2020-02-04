@@ -3,7 +3,7 @@ This package allows user to plot the conductance graph of a quantum wire.
 
 ## Installation
 
-Browse the directory where the file lives and run:
+Browse the directory where the setup.py file lives and run:
 
 ```
 pip install .
