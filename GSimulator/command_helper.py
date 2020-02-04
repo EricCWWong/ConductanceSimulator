@@ -82,6 +82,8 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     axs.set_ylabel(r'$G \times \frac{h}{2e^{2}} $')
     axs.set_xlabel(r'$ \frac{E_{f} - U_{0}}{\hbar w_{x}}$')
     axs.set_ylim([0, channels])
+    axs.set_yticks(np.arange(0, channels, 0.25))
+    plt.grid()
 
     # Initialise table:
     table = PrettyTable()
