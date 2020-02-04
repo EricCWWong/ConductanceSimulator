@@ -89,7 +89,7 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     
     # Setting up:
     plots = len(exp_setup)
-    x = np.arange(-2, offset * plots + channels * 2, 0.1)
+    x = np.arange(-2, offset * plots + channels * 3, 0.1)
 
     for i in range(plots):
         # initialise experiment setup:
@@ -111,6 +111,7 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
         axs.plot(x,y)
 
     print(table)
+    print('Note: The angle is in radian with respect to the normal of the 2DEG, i.e. a perpendicular field will have angle 0 rad while a parallel field will have angle pi/2 rad.')
 
     if savefig is not None:
         file_name = savefig
