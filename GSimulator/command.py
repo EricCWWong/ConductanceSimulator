@@ -45,6 +45,11 @@ def process():
         action='store',
         help="The translation of the curves, in units of meV.")
 
+    parser.add_argument(
+        '--contour',
+        action='store',
+        help="The maximum B of the contour plot.")
+
     arguments = parser.parse_args()
 
     if arguments.material is None:

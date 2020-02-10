@@ -117,6 +117,6 @@ class Model:
         """
 
         output = 0
-        for i in range (0, channels + 1):
+        for i in range (0, channels):
             output = output + self.forward_transmission(i, x) + self.backward_transmission(i, x)
         return output * 1/2
