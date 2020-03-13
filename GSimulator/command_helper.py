@@ -118,9 +118,7 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
         axs.plot(x,y)
         if i == (plots-1):
             min = np.where(y >= channels - 0.1)
-            print(min)
             x_min_index = min[0][0]
-            print(x_min_index)
             x_min = x[x_min_index] + 1
 
         dydx.append(np.gradient(y_diff))
@@ -132,7 +130,6 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     file_name = savefig
 
     axs.set_xlim([-1, x_min])
-    print(x_min)
 
     if plots > 1:
         # Initialise diff graph:
