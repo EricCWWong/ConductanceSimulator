@@ -85,20 +85,13 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     axs.set_yticks(np.arange(0, channels + 0.25, 0.25))
     plt.grid()
 
-    # Initialise diff graph:
-    fig1, axs1 = plt.subplots(1, 1)
-    fig1.suptitle("Diff Conductance " + graph_name)
-    axs1.set_xlabel(r'$ 10 \times E_{f}$')
-    axs1.set_ylabel('Experiments')
-    axs1.set_xlim([0, 280])
-
     # Initialise table:
     table = PrettyTable()
     table.field_names = ['hbar w_x (meV)', 'w_y/ w_x', 'B (T)', 'angle (rad)', 'E1 (meV)', 'E2 (meV)', 'eVsd (meV)', 'hbar w_c (meV)', 'Zeeman (meV)']
     
     # Setting up conductance plot:
     plots = len(exp_setup)
-    x = np.arange(-2, offset * plots + channels * 4.5, 0.1)
+    x = np.arange(-2, offset * plots + channels * 6, 0.1)
 
     # Setting up differential plot:
     x_diff = np.arange(-2, 30, 0.1)
@@ -123,19 +116,39 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
         y = model.total_transmission(channels, x - i * offset)
         y_diff = model.total_transmission(channels, x_diff)
         axs.plot(x,y)
-        #axs1.plot(x_diff, np.gradient(y_diff))
+        if i == (plots-1):
+            min = np.where(y >= channels - 0.1)
+            print(min)
+            x_min_index = min[0][0]
+            print(x_min_index)
+            x_min = x[x_min_index] + 1
+
         dydx.append(np.gradient(y_diff))
 
     print(table)
     print('Note: The angle is in radian with respect to the normal of the 2DEG, i.e. a perpendicular field will have angle 0 rad while a parallel field will have angle pi/2 rad.')
 
     # plotting diff plot:
-    dydx = np.array(dydx)
-    contour = axs1.contourf(dydx)
-    fig1.colorbar(contour)
+    file_name = savefig
 
+    axs.set_xlim([-1, x_min])
+    print(x_min)
+
+    if plots > 1:
+        # Initialise diff graph:
+        fig1, axs1 = plt.subplots(1, 1)
+        fig1.suptitle("Diff Conductance " + graph_name)
+        axs1.set_xlabel(r'$ 10 \times E_{f}$')
+        axs1.set_ylabel('Experiments')
+        axs1.set_xlim([0, 280])
+
+        dydx = np.array(dydx)
+        contour = axs1.contourf(dydx)
+        fig1.colorbar(contour)
+        if savefig is not None:
+            fig1.savefig('./Results/' + "diff_" + file_name)
+    
     if savefig is not None:
-        file_name = savefig
         fig.savefig('./Results/' + file_name)
-        fig1.savefig('./Results/' + "diff_" + file_name)
+        
     plt.show()
