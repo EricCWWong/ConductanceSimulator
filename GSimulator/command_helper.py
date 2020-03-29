@@ -137,7 +137,7 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
         fig1.suptitle("Diff Conductance " + graph_name)
         axs1.set_xlabel(r'$ 10 \times E_{f}$')
         axs1.set_ylabel('Experiments')
-        axs1.set_xlim([0, 280])
+        axs1.set_xlim([0, (x_min - (plots - 3)* offset) *10])
 
         dydx = np.array(dydx)
         contour = axs1.contourf(dydx)
