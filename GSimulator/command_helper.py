@@ -62,11 +62,11 @@ def plotter(material, exp_setup, channels, offset, graph_name='conductance', fmt
     exp_setup: 2d-array
         The experiment setup, see the csv file format for details.
     channels: int
-        The number of electrons channels taken into account.
+        The number of electrons subband taken into account.
     graph_name: str
-        The name of the saved plot. Default is 'conductance'.
+        The name of the plot. Default is 'conductance'.
     fmt: str
-        The format of the saved file.
+        The format of the saved file. Default is pdf.
     savefig: str
         The name of the fig if user wants it to be saved. If savefig is NONE, then 
         the figure will not be saved.
