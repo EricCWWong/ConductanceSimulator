@@ -8,7 +8,7 @@ setup(
     description='This package allows user to \
         simulate conductance of quantum wires',
     author_email='c.wing.wong.19@ucl.ac.uk',
-    install_requires=['numpy', 'matplotlib', 'prettytable'],
+    install_requires=['numpy', 'matplotlib', 'prettytable', 'qutip'],
     entry_points={
         'console_scripts': [
             'gsimulator = GSimulator.command:process'
