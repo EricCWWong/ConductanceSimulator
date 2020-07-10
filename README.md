@@ -1,4 +1,4 @@
-# GSimulator
+# Conductance Simulator
 This package allows user to plot the conductance graph of a quantum wire. There are main feature of this package 1)We have a command line operated simulation on 
 non-interacting quantum wires, see Usage section for more detail. 2)A simulation in the interacting regime is also included. However, unlike the non-interacting case,
 it doesn't currently have features to be used purely in command-line. All model classes and plotting functions can be imported in python files once installed.
