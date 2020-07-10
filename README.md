@@ -1,11 +1,17 @@
 # GSimulator
-This package allows user to plot the conductance graph of a quantum wire. It is tested to run on Linux platform. Before running, ensure `pip` is installed. It can be installed by:
+This package allows user to plot the conductance graph of a quantum wire. There are main feature of this package 1)We have a command line operated simulation on 
+non-interacting quantum wires, see Usage section for more detail. 2)A simulation in the interacting regime is also included. However, unlike the non-interacting case,
+it doesn't currently have features to be used purely in command-line. All model classes and plotting functions can be imported in python files once installed.
+
+It is tested to run on Linux platform. 
+
+## Installation
+
+Before running, ensure `pip` is installed. It can be installed by:
 
 ```
 $ sudo apt install python3-pip
 ```
-
-## Installation
 
 Browse the directory where the setup.py file lives and run:
 
@@ -18,7 +24,7 @@ if permission is required, run:
 $ pip install --user .
 ```
 
-## Usage
+## Usage (Command Line)
 
 We allow users to use the package in command line settings. This can be done by using the word `gsimulator` as shown below:
 
@@ -41,5 +47,18 @@ For more information, type in terminal:
 
 ```
 $ gsimulator --help
+```
+
+## Usage (Python Programming)
+To import the modules or functions for non-interacting simulation, we simply type:
+
+```
+import GSimulator
+```
+
+Similarly, to import modules or functions for interacting simulation, we simply type:
+
+```
+import IntSimulator
 ```
 
