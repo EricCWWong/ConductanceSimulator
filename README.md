@@ -64,3 +64,15 @@ Similarly, to import modules or functions for interacting simulation, we simply 
 import IntSimulator
 ```
 
+## Reference
+GSimulator:
+- Büttiker, M., 1990. Quantized transmission of a saddle-point constriction. Physical Review B, 41(11), p.7906.
+- Martin-Moreno, L., Nicholls, J.T., Patel, N.K. and Pepper, M., 1992. Non-linear conductance of a saddle-point constriction. Journal of Physics: Condensed Matter, 4(5), p.1323.
+- Patel, N.K., Nicholls, J.T., Martn-Moreno, L., Pepper, M., Frost, J.E.F., Ritchie, D.A. and Jones, G.A.C., 1991. Properties of a ballistic quasi-one-dimensional constriction in a parallel high magnetic field. Physical Review B, 44(19), p.10973.  
+
+IntSimulator:
+
+- Bayat, A., Kumar, S., Pepper, M. and Bose, S., 2017. Quantum phase transition detected through one-dimensional ballistic conductance. Physical Review B, 96(4), p.041116.
+- Meyer, J.S., Matveev, K.A. and Larkin, A.I., 2007. Transition from a one-dimensional to a quasi-one-dimensional state in interacting quantum wires. Physical review letters, 98(12), p.126404.
+- Mehta, A.C., Umrigar, C.J., Meyer, J.S. and Baranger, H.U., 2013. Zigzag phase transition in quantum wires. Physical review letters, 110(24), p.246802.
+- Meyer, J.S. and Matveev, K.A., 2008. Wigner crystal physics in quantum wires. Journal of Physics: Condensed Matter, 21(2), p.023203.
